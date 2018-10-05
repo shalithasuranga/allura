@@ -591,7 +591,7 @@ class ForgeHTMLSanitizerFilter(html5lib.filters.sanitizer.Filter):
         self.allowed_elements = set(html5lib.filters.sanitizer.allowed_elements) - _form_elements
 
         # srcset is used in our own project_list/project_summary widgets which are used as macros so go through markdown
-        self.allowed_attributes = html5lib.filters.sanitizer.allowed_attributes | {'srcset'}
+        self.allowed_attributes = html5lib.filters.sanitizer.allowed_attributes | {(None, 'srcset'), (None, 'data-src')}
 
         self.valid_iframe_srcs = ('https://www.youtube.com/embed/', 'https://www.gittip.com/')
         self._prev_token_was_ok_iframe = False
@@ -599,12 +599,16 @@ class ForgeHTMLSanitizerFilter(html5lib.filters.sanitizer.Filter):
     def sanitize_token(self, token):
         """
         Allow iframe tags if the src attribute matches our list of valid sources.
+        Allow input tags if the type attribute matches "checkbox"
         Otherwise use default sanitization.
         """
 
         iframe_el = (html5lib.constants.namespaces['html'], 'iframe')
         self.allowed_elements.discard(iframe_el)
         ok_opening_iframe = False
+
+        input_el = (html5lib.constants.namespaces['html'], 'input')
+        self.allowed_elements.discard(input_el)
 
         if token.get('name') == 'iframe':
             attrs = token.get('data') or {}
@@ -615,6 +619,12 @@ class ForgeHTMLSanitizerFilter(html5lib.filters.sanitizer.Filter):
                 self.allowed_elements.add(iframe_el)
 
         self._prev_token_was_ok_iframe = ok_opening_iframe
+
+        if token.get('name') == 'input':
+            attrs = token.get('data') or {}
+            if attrs.get((None, 'type'), '') == "checkbox":
+                self.allowed_elements.add(input_el)
+
         return super(ForgeHTMLSanitizerFilter, self).sanitize_token(token)
 
 

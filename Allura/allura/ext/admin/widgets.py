@@ -149,7 +149,11 @@ class ScreenshotAdmin(ff.ForgeForm):
     def fields(self):
         fields = [
             ew.InputField(name='screenshot', field_type='file',
-                          label='New Screenshot', attrs={'accept': 'image/*'}),
+                          label='New Screenshot', 
+                          attrs={
+                              'accept': 'image/*',
+                              'required': 'true',
+                              }),
             ew.InputField(name='caption',
                           field_type="text",
                           label='Caption',
@@ -236,7 +240,8 @@ class MetadataAdmin(ff.AdminForm):
         delete_icon = ew.InputField(field_type="hidden", label='Delete Icon')
         undelete = ew.InputField(field_type="hidden", label='Undelete')
         tracking_id = ew.InputField(
-            field_type="text", label="Analytics Tracking ID")
+            field_type="text", label="Google Analytics ID",
+            attrs=(dict(placeholder='UA-123456-0', pattern='UA-[0-9]+-[0-9]+')))
         twitter_handle = ew.InputField(
             field_type="text", label='Twitter Handle')
         facebook_page = ew.InputField(field_type="text", label='Facebook page',

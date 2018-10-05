@@ -1,5 +1,4 @@
-/*
-       Licensed to the Apache Software Foundation (ASF) under one
+..     Licensed to the Apache Software Foundation (ASF) under one
        or more contributor license agreements.  See the NOTICE file
        distributed with this work for additional information
        regarding copyright ownership.  The ASF licenses this file
@@ -15,27 +14,11 @@
        KIND, either express or implied.  See the License for the
        specific language governing permissions and limitations
        under the License.
- */
-$(function() {
-  $('.sortable').sortable({cursor: 'move'}).bind('sortupdate', function(e) {
-    var params = {'_session_id': $.cookie('_session_id')};
-    $(this).find('.screenshot').each(function(i) {
-      params[$(this).data('ss-id')] = i;
-    });
 
-    $.post('sort_screenshots', params)
-      .done(function() {
-        flash('New sort order saved.', 'success');
-      })
-      .fail(function() {
-        flash('Sorting failed. Please refresh the page and try again.', 'error');
-      });
+.. _personal_dashboard_module:
 
-  });
+:mod:`allura.ext.personal_dashboard`
+-------------------------------------
 
-  $('.delete_screenshot_form').submit(function() {
-    return confirm('Really delete this screenshot?');
-  });
-  
-});
-
+.. automodule:: allura.ext.personal_dashboard.dashboard_main
+    :members:

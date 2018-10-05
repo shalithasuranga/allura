@@ -290,6 +290,8 @@ class ForgeLinkPattern(markdown.inlinepatterns.LinkPattern):
         except IndexError:
             href = m.group(2)
             is_link_with_brackets = True
+            if el.text == 'x' or el.text == ' ': # skip [ ] and [x] for markdown checklist 
+                return '[' + el.text + ']'
         try:
             title = m.group(13)
         except IndexError:

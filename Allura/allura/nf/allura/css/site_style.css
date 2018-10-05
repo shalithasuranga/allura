@@ -2854,7 +2854,7 @@ h1.title .viewer:hover {
 }
 
 .editable .editor .save_controls {
-  width: 115px;
+  width: 150px;
 }
 
 .editable .editor.multiline .save_holder {
@@ -2864,6 +2864,11 @@ h1.title .viewer:hover {
 .editable .editor.multiline.overlap {
   position: absolute;
   z-index: 10;
+}
+
+.editable .editor.multiline textarea{
+    width: 95%;
+    min-width: 300px;
 }
 
 .editable .editor .save_holder .cancel_btn {
@@ -3559,7 +3564,7 @@ ul.dropdown ul li:first-child a {
   border-top: 1px solid #e5e5e5;
   padding: 10px;
 }
-.profile-section.projects ul img, .profile-section.projects ul .placeholder-icon {
+.profile-section.projects ul li > img, .profile-section.projects ul .placeholder-icon {
   vertical-align: top;
   margin-right: 10px;
   float: left;
@@ -3648,6 +3653,15 @@ ul.dropdown ul li:first-child a {
 }
 .profile-section.social dl dd a {
   margin: 0;
+}
+.profile-section.tickets {
+  margin-top: 10px;
+}
+.profile-section.tickets .section-body {
+  padding: 10px;
+}
+.profile-section.merge_requests .section-body {
+  padding: 10px;
 }
 #user-message {
   -webkit-border-radius: 4px;
